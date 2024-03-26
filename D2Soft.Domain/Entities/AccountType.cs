@@ -10,5 +10,6 @@ namespace D2Soft.Domain.Entities
     {
         public int Id { get; set; }
         public string AccountName { get; set; }
+        public ICollection<Account> Accounts { get; set; }
     }
 }

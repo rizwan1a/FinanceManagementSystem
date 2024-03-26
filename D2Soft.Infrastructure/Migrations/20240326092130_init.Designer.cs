@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D2Soft.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240324071052_init")]
+    [Migration("20240326092130_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -103,12 +103,17 @@ namespace D2Soft.Infrastructure.Migrations
             modelBuilder.Entity("D2Soft.Domain.Entities.Account", b =>
                 {
                     b.HasOne("D2Soft.Domain.Entities.AccountType", "AccountType")
-                        .WithMany()
+                        .WithMany("Accounts")
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AccountType");
+                });
+
+            modelBuilder.Entity("D2Soft.Domain.Entities.AccountType", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

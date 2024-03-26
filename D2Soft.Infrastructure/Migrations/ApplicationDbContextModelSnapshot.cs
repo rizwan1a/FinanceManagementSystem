@@ -100,12 +100,17 @@ namespace D2Soft.Infrastructure.Migrations
             modelBuilder.Entity("D2Soft.Domain.Entities.Account", b =>
                 {
                     b.HasOne("D2Soft.Domain.Entities.AccountType", "AccountType")
-                        .WithMany()
+                        .WithMany("Accounts")
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AccountType");
+                });
+
+            modelBuilder.Entity("D2Soft.Domain.Entities.AccountType", b =>
+                {
+                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

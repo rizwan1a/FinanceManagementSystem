@@ -14,6 +14,7 @@ namespace D2Soft.Application.Helper
         public MappingProfiles()
         {
             CreateMap<Account, AccountDTO>();
+            CreateMap<AccountDTO, Account>();
         }
     }
 }
