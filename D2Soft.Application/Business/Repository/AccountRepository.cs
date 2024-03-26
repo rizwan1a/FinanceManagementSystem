@@ -50,16 +50,21 @@ namespace D2Soft.Application.Business.Repository
 
         public List<ValidationFailure> Validate(AccountDTO accountDTO)
         {
+            var accountTypeIds = _context.AccountTypes.Select(x => x.Id).ToList();
+            var validationFailure = new List<ValidationFailure>();
+
             var validator = new AccountValidator();
             var validationResult = validator.Validate(accountDTO);
-            if(!validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
-                return validationResult.Errors.ToList();
+                validationFailure = validationResult.Errors.ToList();
             }
-            else
+            if (!accountTypeIds.Contains(accountDTO.AccountTypeId))
             {
-                return new List<ValidationFailure>();
+                var error = new ValidationFailure("", $"No Foreign Key exists for accountType {accountDTO.AccountTypeId}");
+                validationFailure.Add(error);
             }
+            return validationFailure;
 
         }
     }
